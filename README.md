@@ -7,6 +7,9 @@ A Flutter application for Windows that allows you to download mp3 files.
 Application icon (and icon on the home page)
 <a href="https://www.flaticon.com/free-icons/ipod" title="ipod icons">Ipod icons created by Freepik - Flaticon</a>
 
+## Code Quality
+The code quality is very poor as this was a 2 hour job. I will not be maintaining this application.
+
 ## Legality
 This application is a technical demonstration only. It relies on the external packages [youtube_explode_dart](https://pub.dev/packages/youtube_explode_dart) to search for the video and [youtube-dl](https://youtube-dl.org/) to download the mp3. As such, it is not intended to be used for illegal purposes and I will not provide a build of the application.
 
