@@ -100,6 +100,7 @@ class _DownloadButtonState extends State<DownloadButton> {
             try {
               await downloadVideo(songInfo);
             } catch (e) {
+              scaffoldMessenger.hideCurrentSnackBar();
               scaffoldMessenger.showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.red,
@@ -120,6 +121,7 @@ class _DownloadButtonState extends State<DownloadButton> {
           setState(() {
             done = 0;
           });
+          scaffoldMessenger.hideCurrentSnackBar();
           scaffoldMessenger.showSnackBar(
             const SnackBar(
               backgroundColor: Colors.blue,
@@ -131,7 +133,8 @@ class _DownloadButtonState extends State<DownloadButton> {
           );
         }
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
+        scaffoldMessenger.hideCurrentSnackBar();
+        scaffoldMessenger.showSnackBar(
           SnackBar(
             backgroundColor: Colors.red,
             closeIconColor: Colors.white,
