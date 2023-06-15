@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(const String.fromEnvironment('YOUTUBE_API_KEY'));
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -87,6 +86,7 @@ class _DownloadButtonState extends State<DownloadButton> {
 
   void handleClick() async {
     setLoading(true);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
     final List<String> listOfTitles = songTitles;
     final List<Map<String, String>> listOfUrls = [];
     for (String songTitle in songTitles) {
@@ -100,13 +100,13 @@ class _DownloadButtonState extends State<DownloadButton> {
             try {
               await downloadVideo(songInfo);
             } catch (e) {
-              ScaffoldMessenger.of(context).showSnackBar(
+              scaffoldMessenger.showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.red,
                   closeIconColor: Colors.white,
                   showCloseIcon: true,
                   content: Text(e.toString()),
-                  duration: Duration(days: 365),
+                  duration: const Duration(days: 365),
                 ),
               );
             } finally {
@@ -120,7 +120,7 @@ class _DownloadButtonState extends State<DownloadButton> {
           setState(() {
             done = 0;
           });
-          ScaffoldMessenger.of(context).showSnackBar(
+          scaffoldMessenger.showSnackBar(
             const SnackBar(
               backgroundColor: Colors.blue,
               closeIconColor: Colors.white,
@@ -137,7 +137,7 @@ class _DownloadButtonState extends State<DownloadButton> {
             closeIconColor: Colors.white,
             showCloseIcon: true,
             content: Text(e.toString()),
-            duration: Duration(days: 365),
+            duration: const Duration(days: 365),
           ),
         );
         setLoading(false);

@@ -19,7 +19,6 @@ Future<String> downloadYoutubeDL() async {
 
   File youtubeDLFile = File(savePath);
   if (await youtubeDLFile.exists()) {
-    print('youtube-dl already exists at $savePath');
     return savePath;
   }
 
@@ -30,10 +29,8 @@ Future<String> downloadYoutubeDL() async {
 
     await youtubeDLFile.writeAsBytes(response.bodyBytes);
 
-    print('youtube-dl downloaded successfully to $savePath');
     return savePath;
   } catch (error) {
-    print('Error downloading youtube-dl: $error');
     return '';
   }
 }
@@ -41,9 +38,13 @@ Future<String> downloadYoutubeDL() async {
 Future<void> downloadVideo(Map<String, String> songInfo) async {
   String youtubeDLPath = await downloadYoutubeDL();
   String downloadPath = await getMetubeDownloadPath();
-  String savePath = '$downloadPath/${songInfo['title']}.mp3';
+  String titleWithoutSlashes = songInfo['title']!.replaceAll('/', '-');
+  // remove other characters that are not allowed in file names
+  titleWithoutSlashes =
+      titleWithoutSlashes.replaceAll(RegExp(r'[<>:"/\\|?*]'), '');
+  String savePath = '$downloadPath/$titleWithoutSlashes.mp3';
 
-  ProcessResult result = await Process.run(
+  await Process.run(
     youtubeDLPath,
     ['-x', '--audio-format', 'mp3', '-o', savePath, songInfo['url']!],
     runInShell: true,
